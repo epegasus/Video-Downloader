@@ -1,5 +1,6 @@
 package dev.pegasus.downloadmanager
 
+import android.app.DownloadManager
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -22,7 +23,8 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     // MVVM
-    private val dataSourceDownloads by lazy { DataSourceDownloads() }
+    private val downloadManager by lazy { getSystemService(DOWNLOAD_SERVICE) as DownloadManager }
+    private val dataSourceDownloads by lazy { DataSourceDownloads(downloadManager) }
     private val repositoryDownloadsImpl by lazy { RepositoryDownloadsImpl(dataSourceDownloads) }
     private val useCaseDownloads by lazy { UseCaseDownloads(repositoryDownloadsImpl) }
     private val useCaseUrl by lazy { UseCaseUrl() }
