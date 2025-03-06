@@ -10,5 +10,5 @@ package dev.pegasus.downloadmanager.domain.repository
  */
 
 interface RepositoryDownloads {
-    suspend fun downloadUrl(videoUrl: String)
+    suspend fun downloadUrl(videoUrl: String, fileName: String)
 }

@@ -14,7 +14,7 @@ import dev.pegasus.downloadmanager.domain.repository.RepositoryDownloads
 
 class RepositoryDownloadsImpl(private val dataSourceDownloads: DataSourceDownloads) : RepositoryDownloads {
 
-    override suspend fun downloadUrl(videoUrl: String) {
-        dataSourceDownloads.downloadUrl(videoUrl)
+    override suspend fun downloadUrl(videoUrl: String, fileName: String) {
+        dataSourceDownloads.downloadUrl(videoUrl, fileName)
     }
 }

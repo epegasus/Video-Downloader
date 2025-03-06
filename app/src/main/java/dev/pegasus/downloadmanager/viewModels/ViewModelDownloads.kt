@@ -20,17 +20,17 @@ import kotlinx.coroutines.launch
 class ViewModelDownloads(private val useCaseUrl: UseCaseUrl, private val useCaseDownloads: UseCaseDownloads) : ViewModel() {
 
     private val _inValidUrlLiveData = SingleLiveEvent<Unit>()
-    val validUrlLiveData: LiveData<Unit> get() = _inValidUrlLiveData
+    val inValidUrlLiveData: LiveData<Unit> get() = _inValidUrlLiveData
 
-    private val _navigateLiveData = SingleLiveEvent<Unit>()
-    val navigateLiveData: LiveData<Unit> get() = _navigateLiveData
+    private val _validUrlLiveData = SingleLiveEvent<Unit>()
+    val validUrlLiveData: LiveData<Unit> get() = _validUrlLiveData
 
     fun validateUrl(query: String) = viewModelScope.launch {
         if (useCaseUrl.validateUrl(query).not()) {
             _inValidUrlLiveData.value = Unit
             return@launch
         }
-        _navigateLiveData.value = Unit
+        _validUrlLiveData.value = Unit
         downloadUrl(query)
     }
 

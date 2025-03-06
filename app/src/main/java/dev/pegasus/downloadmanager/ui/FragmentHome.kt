@@ -3,7 +3,6 @@ package dev.pegasus.downloadmanager.ui
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import dev.pegasus.downloadmanager.R
 import dev.pegasus.downloadmanager.base.BaseFragment
 import dev.pegasus.downloadmanager.databinding.FragmentHomeBinding
@@ -22,12 +21,11 @@ class FragmentHome : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private fun initObservers() {
         mainActivity?.viewModelDownloads?.let { viewModel ->
-            viewModel.navigateLiveData.observe(viewLifecycleOwner) { isValid ->
+            viewModel.validUrlLiveData.observe(viewLifecycleOwner) { isValid ->
                 binding.etInput.text?.clear()
                 context.showToast(R.string.starting_download)
-                findNavController().navigate(R.id.fragmentDownloads)
             }
-            viewModel.validUrlLiveData.observe(viewLifecycleOwner) { isValid ->
+            viewModel.inValidUrlLiveData.observe(viewLifecycleOwner) { isValid ->
                 context.showToast(R.string.invalid_url)
             }
         }
@@ -38,6 +36,7 @@ class FragmentHome : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         clipBoardData?.let { text ->
             binding.etInput.setText(text)
             binding.etInput.requestFocus()
+            binding.etInput.setSelection(binding.etInput.text?.length ?: 0)
         } ?: run {
             context.showToast(R.string.nothing_to_paste)
         }

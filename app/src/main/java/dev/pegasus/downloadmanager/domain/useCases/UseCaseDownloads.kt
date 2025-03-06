@@ -14,6 +14,7 @@ import dev.pegasus.downloadmanager.data.repository.RepositoryDownloadsImpl
 class UseCaseDownloads(private val repository: RepositoryDownloadsImpl) {
 
     suspend fun downloadUrl(videoUrl: String) {
-        repository.downloadUrl(videoUrl)
+        val fileName = videoUrl.substringAfterLast("/")
+        repository.downloadUrl(videoUrl, fileName)
     }
 }
