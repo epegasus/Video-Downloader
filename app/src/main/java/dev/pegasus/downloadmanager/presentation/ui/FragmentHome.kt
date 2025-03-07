@@ -1,4 +1,4 @@
-package dev.pegasus.downloadmanager.ui
+package dev.pegasus.downloadmanager.presentation.ui
 
 import android.text.Editable
 import android.text.TextWatcher

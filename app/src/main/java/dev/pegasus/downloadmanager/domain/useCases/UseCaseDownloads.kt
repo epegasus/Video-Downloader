@@ -1,5 +1,6 @@
 package dev.pegasus.downloadmanager.domain.useCases
 
+import dev.pegasus.downloadmanager.data.entities.DownloadEntity
 import dev.pegasus.downloadmanager.data.repository.RepositoryDownloadsImpl
 
 /**
@@ -13,8 +14,11 @@ import dev.pegasus.downloadmanager.data.repository.RepositoryDownloadsImpl
 
 class UseCaseDownloads(private val repository: RepositoryDownloadsImpl) {
 
-    suspend fun downloadUrl(videoUrl: String) {
-        val fileName = videoUrl.substringAfterLast("/")
-        repository.downloadUrl(videoUrl.trim(), fileName)
-    }
+    suspend fun getDownloads() = repository.getDownloads()
+    suspend fun addDownload(download: DownloadEntity) = repository.addDownload(download)
+    suspend fun startDownload(url: String) = repository.startDownload(url)
+    suspend fun pauseDownload(id: Int) = repository.pauseDownload(id)
+    suspend fun resumeDownload(id: Int) = repository.resumeDownload(id)
+    suspend fun cancelDownload(id: Int) = repository.cancelDownload(id)
+    suspend fun retryDownload(id: Int, url: String) = repository.retryDownload(id, url)
 }

@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/fragmentHome"
-        android:name="dev.pegasus.downloadmanager.ui.FragmentHome"
+        android:name="dev.pegasus.downloadmanager.presentation.ui.FragmentHome"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/fragmentDownloads"
-        android:name="dev.pegasus.downloadmanager.ui.FragmentDownloads"
+        android:name="dev.pegasus.downloadmanager.presentation.ui.FragmentDownloads"
         android:label="fragment_downloads"
         tools:layout="@layout/fragment_downloads" />
 </navigation>

@@ -10,13 +10,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
-import dev.pegasus.downloadmanager.data.dataSources.DataSourceDownloads
+import dev.pegasus.downloadmanager.data.dataSources.local.AppDatabase
+import dev.pegasus.downloadmanager.data.dataSources.local.DataSourceLocalDownloads
+import dev.pegasus.downloadmanager.data.dataSources.remote.DataSourceRemoteDownloads
 import dev.pegasus.downloadmanager.data.repository.RepositoryDownloadsImpl
 import dev.pegasus.downloadmanager.databinding.ActivityMainBinding
 import dev.pegasus.downloadmanager.domain.useCases.UseCaseDownloads
 import dev.pegasus.downloadmanager.domain.useCases.UseCaseUrl
-import dev.pegasus.downloadmanager.viewModels.ViewModelDownloads
-import dev.pegasus.downloadmanager.viewModels.ViewModelProviderDownloads
+import dev.pegasus.downloadmanager.presentation.viewModels.ViewModelDownloads
+import dev.pegasus.downloadmanager.presentation.viewModels.ViewModelProviderDownloads
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,8 +26,10 @@ class MainActivity : AppCompatActivity() {
 
     // MVVM
     private val downloadManager by lazy { getSystemService(DOWNLOAD_SERVICE) as DownloadManager }
-    private val dataSourceDownloads by lazy { DataSourceDownloads(downloadManager) }
-    private val repositoryDownloadsImpl by lazy { RepositoryDownloadsImpl(dataSourceDownloads) }
+    private val dao by lazy { AppDatabase.getDatabase(this).downloadsDao() }
+    private val dataSourceLocalDownloads by lazy { DataSourceLocalDownloads(dao) }
+    private val dataSourceRemoteDownloads by lazy { DataSourceRemoteDownloads(this) }
+    private val repositoryDownloadsImpl by lazy { RepositoryDownloadsImpl(dataSourceLocalDownloads, dataSourceRemoteDownloads) }
     private val useCaseDownloads by lazy { UseCaseDownloads(repositoryDownloadsImpl) }
     private val useCaseUrl by lazy { UseCaseUrl() }
     val viewModelDownloads by viewModels<ViewModelDownloads> { ViewModelProviderDownloads(useCaseUrl, useCaseDownloads) }

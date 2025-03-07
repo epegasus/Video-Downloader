@@ -1,4 +1,4 @@
-package dev.pegasus.downloadmanager.viewModels
+package dev.pegasus.downloadmanager.presentation.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
