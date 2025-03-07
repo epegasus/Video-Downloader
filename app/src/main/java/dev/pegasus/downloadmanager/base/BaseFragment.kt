@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import dev.pegasus.downloadmanager.MainActivity
+import dev.pegasus.downloadmanager.presentation.ui.MainActivity
 
 /**
  * Created by: Sohaib Ahmed

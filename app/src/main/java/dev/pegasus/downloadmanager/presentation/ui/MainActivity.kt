@@ -1,6 +1,5 @@
-package dev.pegasus.downloadmanager
+package dev.pegasus.downloadmanager.presentation.ui
 
-import android.app.DownloadManager
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -10,6 +9,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
+import dev.pegasus.downloadmanager.R
 import dev.pegasus.downloadmanager.data.dataSources.local.AppDatabase
 import dev.pegasus.downloadmanager.data.dataSources.local.DataSourceLocalDownloads
 import dev.pegasus.downloadmanager.data.dataSources.remote.DataSourceRemoteDownloads
@@ -20,13 +21,13 @@ import dev.pegasus.downloadmanager.domain.useCases.UseCaseUrl
 import dev.pegasus.downloadmanager.presentation.viewModels.ViewModelDownloads
 import dev.pegasus.downloadmanager.presentation.viewModels.ViewModelProviderDownloads
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     // MVVM
-    private val downloadManager by lazy { getSystemService(DOWNLOAD_SERVICE) as DownloadManager }
-    private val dao by lazy { AppDatabase.getDatabase(this).downloadsDao() }
+    private val dao by lazy { AppDatabase.Companion.getDatabase(this).downloadsDao() }
     private val dataSourceLocalDownloads by lazy { DataSourceLocalDownloads(dao) }
     private val dataSourceRemoteDownloads by lazy { DataSourceRemoteDownloads(this) }
     private val repositoryDownloadsImpl by lazy { RepositoryDownloadsImpl(dataSourceLocalDownloads, dataSourceRemoteDownloads) }

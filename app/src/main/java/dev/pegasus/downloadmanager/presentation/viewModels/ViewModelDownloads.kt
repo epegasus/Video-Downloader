@@ -41,37 +41,27 @@ class ViewModelDownloads(private val useCaseUrl: UseCaseUrl, private val useCase
     private val _downloads = MutableLiveData<List<DownloadEntity>>()
     val downloads: LiveData<List<DownloadEntity>> get() = _downloads
 
-    fun fetchDownloads() {
-        viewModelScope.launch {
-            _downloads.postValue(useCaseDownloads.getDownloads())
-        }
+    fun fetchDownloads() = viewModelScope.launch {
+        _downloads.postValue(useCaseDownloads.getDownloads())
     }
 
-    fun startDownload(url: String) {
-        viewModelScope.launch {
-            useCaseDownloads.startDownload(url)
-            fetchDownloads()
-        }
+    fun startDownload(url: String) = viewModelScope.launch {
+        useCaseDownloads.startDownload(url)
+        fetchDownloads()
     }
 
-    fun pauseDownload(id: Int) {
-        viewModelScope.launch {
-            useCaseDownloads.pauseDownload(id)
-            fetchDownloads()
-        }
+    fun pauseDownload(id: Int) = viewModelScope.launch {
+        useCaseDownloads.pauseDownload(id)
+        fetchDownloads()
     }
 
-    fun resumeDownload(id: Int) {
-        viewModelScope.launch {
-            useCaseDownloads.resumeDownload(id)
-            fetchDownloads()
-        }
+    fun resumeDownload(id: Int) = viewModelScope.launch {
+        useCaseDownloads.resumeDownload(id)
+        fetchDownloads()
     }
 
-    fun cancelDownload(id: Int) {
-        viewModelScope.launch {
-            useCaseDownloads.cancelDownload(id)
-            fetchDownloads()
-        }
+    fun cancelDownload(id: Int) = viewModelScope.launch {
+        useCaseDownloads.cancelDownload(id)
+        fetchDownloads()
     }
 }
