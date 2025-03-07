@@ -15,6 +15,6 @@ class UseCaseDownloads(private val repository: RepositoryDownloadsImpl) {
 
     suspend fun downloadUrl(videoUrl: String) {
         val fileName = videoUrl.substringAfterLast("/")
-        repository.downloadUrl(videoUrl, fileName)
+        repository.downloadUrl(videoUrl.trim(), fileName)
     }
 }

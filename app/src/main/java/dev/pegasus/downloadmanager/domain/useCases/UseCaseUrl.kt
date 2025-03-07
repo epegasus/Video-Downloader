@@ -16,7 +16,7 @@ class UseCaseUrl {
 
     fun validateUrl(query: String): Boolean {
         Log.d(TAG, "UseCaseUrl: validateUrl: $query")
-        return isValidUrl(query)
+        return isValidUrl(query.trim())
     }
 
     private fun isValidUrl(url: String): Boolean {
